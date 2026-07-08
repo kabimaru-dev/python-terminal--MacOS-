@@ -1,4 +1,5 @@
 import subprocess
+import os
 
 while True:
     args = input("kabimaru-dev@MacBook-Pro ~ % ")
@@ -16,15 +17,19 @@ while True:
         string_array.append(string)
         string = ''
 
+    if string_array[0] == 'cd':
+        if string_array[1] == '':
+            print("Empty directory")
+        os.chdir(string_array[1])
+        subprocess.run(['pwd'])
 
-    # print(string_array)
-    try:
-        subprocess.run(string_array)
-        
-    except:
-        if not (string_array == ['exit']):
-            print("Wrong writing command, please check the output step by step: ")
-            print(string_array)
-        else:
-            print("Use 'CTRL + C' for exit")
-    
+    else:
+        try:
+            if not string_array[0] == 'cd':
+                subprocess.run(string_array)
+        except:
+            if not (string_array == ['exit']):
+                print("Wrong writing command, please check the output step by step: ")
+                print(string_array)
+            else:
+                print("Use 'CTRL + C' for exit")
